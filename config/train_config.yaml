@@ -1,0 +1,95 @@
+# Environment Configuration
+settings:
+  docker:
+    required:
+      - aws
+      - evidently
+      - kubeflow
+      - kubernetes
+      - mlflow
+      - sklearn
+      - slack
+
+# configuration of steps
+steps:
+  model_trainer:
+    parameters:
+      name: e2e_use_case
+  promote_with_metric_compare:
+    parameters:
+      mlflow_model_name: e2e_use_case
+  notify_on_success:
+    parameters:
+      notify_on_success: False
+
+# configuration of the model control plane
+model:
+  name: e2e_use_case
+  license: apache
+  description: e2e_use_case E2E Batch Use Case
+  audience: All ZenML users
+  use_case:
+    The ZenML E2E project project demonstrates how the most important steps of
+    the ML Production Lifecycle can be implemented in a reusable way remaining
+    agnostic to the underlying infrastructure, and shows how to integrate them together
+    into pipelines for Training and Batch Inference purposes.
+  ethics: No impact.
+  tags:
+    - e2e
+    - batch
+    - sklearn
+    - from template
+    - ZenML delivered
+
+# pipeline level extra configuration
+extra:
+  notify_on_failure: True
+
+# pipeline level parameters
+parameters:
+  target_env: production
+    # This include all the model configuration that will be
+    # evaluated during hyperparameter tuning stage
+  model_search_space:
+    random_forest:
+      model_package: sklearn.ensemble
+      model_class: RandomForestClassifier
+      search_grid:
+        criterion:
+          - gini
+          - entropy
+        max_depth:
+          - 2
+          - 4
+          - 6
+          - 8
+          - 10
+          - 12
+        min_samples_leaf:
+          range:
+            start: 1
+            end: 10
+        n_estimator:
+          range:
+            start: 50
+            end: 500
+            step: 25
+
+    decision_tree:
+      model_package: sklearn.tree
+      model_class: DecisionTreeClassifier
+      search_grid:
+        criterion:
+          - gini
+          - entropy
+        max_depth:
+          - 2
+          - 4
+          - 6
+          - 8
+          - 10
+          - 12
+        min_samples_leaf:
+          range:
+            start: 1
+            end: 10
