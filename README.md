@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # MLFlow Experiment Tracker Setup
 
 ## Issue
@@ -58,3 +59,6 @@ python run.py
 ```
 
 This will execute the training, deployment, and batch inference pipelines as configured in the `run.py` file.
+=======
+# mlops-project
+>>>>>>> f8c14133c1947329c5a929407ee564f157b6e3de
